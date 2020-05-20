@@ -24,8 +24,7 @@ public class LoginPage {
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		uname.sendKeys(usernameApp);
 		pass.sendKeys(passwordApp);
