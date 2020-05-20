@@ -10,6 +10,7 @@ import org.openqa.selenium.support.How;
 public class LoginPage {
 	WebDriver driver;
 	
+	//This is new commit from KR
 	public LoginPage(WebDriver ldriver) {
 		this.driver=ldriver;
 	}
@@ -20,6 +21,7 @@ public class LoginPage {
 		
 	@FindBy(xpath="//input[@value='login']") WebElement loginbutton;
 	
+	//This is new commit from KR
 	public void loginToCRM(String usernameApp,String passwordApp) {
 		try {
 			Thread.sleep(3000);
