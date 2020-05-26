@@ -10,6 +10,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
+
 import com.automation.utility.BrowserFactory;
 import com.automation.utility.ConfigDataProvider;
 import com.automation.utility.ExcelDataProvider;
@@ -41,13 +43,14 @@ public class BaseClass {
 		Reporter.log("Setting done - test can be started", true);
 		
 	}
-	
+	@Parameters({"browser","UrlToBeTested"})
 	@BeforeClass
-	public void setup() {
+	public void setup(String browser,String url) {
 		//driver=BrowserFactory.startApplication(driver, "Chrome", "https://freecrm.com/index.html");
 		
 		Reporter.log("Trying to start browser and getting application ready", true);
-		driver=BrowserFactory.startApplication(driver, config.getBrowser(), config.getStagingURL());
+		//driver=BrowserFactory.startApplication(driver, config.getBrowser(), config.getStagingURL());
+		driver=BrowserFactory.startApplication(driver, browser, url);
 		Reporter.log("Browser and application up and running", true);
 	}
 	

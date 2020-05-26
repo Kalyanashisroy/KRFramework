@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 5, Time elapsed: 2.158 s <<< FAILURE! - in TestSuite
+com.automation.testcases.LoginTestCRM.setup  Time elapsed: 1.893 s  <<< FAILURE!
+java.lang.NullPointerException
+

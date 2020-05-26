@@ -1,0 +1,7 @@
+com\automation\utility\ExcelDataProvider.class
+com\automation\pages\LoginPage.class
+com\automation\utility\BrowserFactory.class
+com\automation\utility\Helper.class
+com\automation\utility\ConfigDataProvider.class
+com\automation\testcases\LoginTestCRM.class
+com\automation\pages\BaseClass.class
