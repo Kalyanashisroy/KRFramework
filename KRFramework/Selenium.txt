@@ -1,0 +1,435 @@
+Page Object Model in Selenium Webdriver Step by Step Guide:
+-----------------------------------------------------------------------------------
+POM:Page object model
+1.Page object model is just a design pattern not a framework.
+2.As the name says we will be working as pages(pages will be pure java classes)
+3.Based on application behavior we will be creating separate pages and will store all the
+ locator and respective method to use them.
+Advantage:1)Script will be more readable format.
+2)Using POM you will be able to achieve below three features easy to maintain,readable format,
+reusable scripts.
+
+>There are 2 ways to implement
+1)Using normal approach
+2)Using PageFactory and @findBy
+
+Page factory:1)In order to support the PageObject pattern,WebDriver's support library contains a factory class.
+2)We have separate method to initialize web elemet of page object is initelemet.
+3)Important feature of page factory is cache feature that will store all frequently used webelement in cache.
+
+=======================================================================================
+What is framwork in selenium webdriver:
+------------------------------------------------------
+Intro to Framework:
+1)Let us talk about a simple situation where I ask a few team members to write different tests on 
+same application.The starting point would be a set of requirements that I want everybody to adhere.
+2)Automate some piece of functionality.
+3)Implement logging.
+4)Implement reporting.
+5)All the members will go back to their seats,will read the requirements assigned to them and will 
+write the tests in a way that they are most comfortable with.
+What's the problem here?
+-->All the tests will be written in different ways.That will cause a problem in running them together.
+-->All the tests will have custom ways of loggin,that will bring in problem in collecting logs at the end 
+    of test run.
+-->All the testa will have different ways to fetch test data,some will be hardcoded and some will pick 
+    from XML or excel sheets.
+-->As the test are on some application,there is a high probability that all test will pass through common
+    areas of application.It will cause duplication of code every where.
+-->All test will report pass of fail in  their own way.Causing report collection a nightmare.
+-->Now all tests are different,so running them would also be different.A custom runner for every test is just
+    an insane thought.
+-----------------------------------------------------------------------------------------------------------------------------------------
+Why we need Framework:
+----------------------------------
+-->The initial requirement of having a standard way of writing tests is what will evolve into a framework.
+-->Every company or team can have different frameworks but the whole idea will be to have a common 
+   set of rules.
+-->Note-Framework development takes time
+
+What is a Framework:
+-->A framework is set of assumptions,concepts and practices that need to be followed.
+-->Something similar to the syntax of a programming language.Syntax sets the rules.In a testing framework
+    it could be the standard with which a test class needs to be designed or a standard which should always
+    be followed to perform test logging.
+
+Components of framewoorks:
+-->The first problem that we came across we found the need of having a test writing a standard,where test 
+    will be written in a specific format that will enable us to have a uniformity around all the tests.
+
+Req 1)Test case standardization.
+Req 2)Loggin standardization.
+Req 3)Test data and configuration utility.
+Req 4)Helper/Utililty library.
+Fourth problem that we saw was in terms of having function/procedures that help us perform fuctions in 
+      the overlapping area of functionality without knowing the details of that functionality.
+      Eg. Lets say you want to test the payment gateway but to reach there you have to go through by login.
+      So login can be a function/procedure or a module to abstract out logging complexity.
+Req 5)Test execution engine
+      As all the tests were different we were not able to run them in a consistent way.This gives a need to 
+      have a consistent test running calls defined by
+Req 6)Reporting utility
+     Reporting was big concern as all the test for not conforming to a fixed reporting pattern.
+     This gives a rise to
+
+Basic framework design:
+
+         Test Runner       DataProvider
+         Reporter             Helper/Reusable
+         Logger                Tests 		
+
+--------------------------------------------------------------------------------------------------------------------------------------
+B)How to setup Maven project for hybrid framework:
+Tools & concepts you should know
+
+Maven-Build tool
+TestNG-Unit testing framework
+Jenkins-CI tool
+Git-SCM tools
+Github-Web based code repository
+Page object model-Design pattern
+Reading external files(Excel and config)
+Selenium concepts-Dealing with webelements and so on
+
+Flow
+Jenkins----->Github------->Local system (Framework)------->
+
+About eclipse-version oxygen release (4.7.0)
+=========================================================================================
+How To Integrate Framework With Git and Github:
+------------------------------------------------------------------
+
+1.Github username:Kalyan006
+email address:kalyanashis.roy@gmail.com
+password:roy&3naylak$6
+
+2.Github username:Kalyanashisroy
+email address:uptodate.kr@gmail.com
+password:&Roy@3MF#2Km$2
+
+3.Github username:Krkgec06
+email address:kgec.kr@gmail.com
+password:Blr@3Gpfmit&6
+
+----------------------------------------------------------------------------------------------------------------------
+
+Push-Submit the code to central repository
+Pull-Pull or download the code from central library
+
+1.GIT:
+a)GIT is version control system for tracking changes in computer files.
+b)SCM-Source code management.
+c)Git is a mature,actively maintained open source project originally developed in 2005 by Linus Torvalds.
+d)It helps in coordinating work on those files among multiple people.
+e)It is primarily used for software development.
+
+2.GITHUB:
+a)GitHub is a web-based GIT.
+b)The site was launched in April 2008 by Tom Preston-Werner.
+c)GitHub is mostly usded for code.
+d)It offers all of the distributed version control and source code management(SCM) functionality
+ of Git as well as adding its won features.
+
+3.Others features of GitHub:
+a)Documentation,including automatically rendered README files.
+b)Issues tracking(including feature requests) with labels,milestones,assignees and a search engine.
+c)Wikkis.
+d)Commits history.
+
+4.a)Git by default via eclipse/b)Git from official site c)git cmd
+Click on prospective button>select git
+
+Step to follow to create GitHub:
+Step 1:First of all central or github repository
+github.com/framework.git
+/Kalyanashisroy/KRFramework.git
+C:\Users\KALYANASHIS\git\KRFramework
+2.Push:Need to create account>then need to verification(optional if you create private need have to pay 
+money)>Click new repository>verify email address(if you already exit user it will not ask you to verify)>
+Repository name need to give>description>Click on create repository>under Clone with HTTPS copy url>
+then go to eclipse click on clone a Git repository>after that need have to give user and password ,
+select check box of store in secure store and click on next button ,again click on next button -then
+ it will creating or cloning (C:\Users\KALYANASHIS\git\Framework) in this particular workspace,then 
+click on finish button>right click on project go to team>share project>select repository>click on finish
+ button>then go to Git repositories select the git which you want to push>click on git staging>select all >
+drag and drop to staged changes location>then need to write commit messages this is optional>
+author and committer email address need to give>then click on commit and push>then click ok button.
+
+Pull:to create pull click on create new file>need to create any type file like txt or config file then click on
+ commit new file button>then go to particular project right click on project>team>click on pull>then select
+ the changes whatever you have made changes in central repository>click on close
+
+To add team member on my existing project:click on settings>click on collaborators(Manage access)>
+https://github.com/MukeshOtwani/Framework
+
+=====================================================================================
+How To Create Maven build For Selenium Framework:
+-----------------------------------------------------------------------
+
+Maven surefire plugin: The surefire plugin is used during the test phase of the build 
+lifecycle to execute the unit tests of an application.It generates reports in two different file
+formats :
+ -->Plain test files(*.txt) 
+-->XML files(*.xml)
+
+1.Copy suite xml files>inside POM.xml add build tag >paste suite xml files>Create one folder(XMLFiles>testngmaven.xml)>
+save the pom.xml
+2.Right click on pom.xml run as maven clean(Maven clean what exact it does it will go to your project and 
+ your project folder target will delete Maven clean will clean target folder)>then right click on pom.xml 
+run as maven install(Maven install will do things firts it will check any dependency there or not if yes it
+will skip if not it will download 2nd part it will build complete project ,it will generate jar and it will 
+run your test as well.)
+
+[If get no compliler is provided please consider adding JDK-window>preferences>search for jre hit enter>
+install jres>click add>select standard vm>next>click directory button>then navigate to jdk>
+select jdk>click apply>apply and close]
+
+3.Go to POM.xml inside configuration under suiteXmlFiles add <systemPropertyVariables> then add <
+ variable browser and url close the>then go to base class add @parameters tag and inside setup method pass the 
+parameter browser and url. To run maven need to add parameter inside maven build>right click on pom.xml then
+run as maven build>under m2 Maven build>click on particular project >under main tag>you can give any 
+name to run the particular  project> in place of Goals write mvn clean install >click on add button>on pop up 
+will come >in place of name write parameter name in this case parameter name is browser> in place of 
+value write parameter value is Chrome>then we can add for your necessary parameter >click ok button>
+click apply button and press run button> 
+
+4.To install apache maven: download maven>apache-maven-3.6.3-bin.zip>apache-maven-3.6.3-bin>go to advanced system settinngs>
+environmental variables>under user variables for Kalyanashis click new button >variable name=MAVEN_HOME>
+variable value=apache maven path need have to give where exact maven is located>then click on ok button>
+then under system variables go path variable  click on  edit button>press end button append semi-colon and 
+paste the path of apache maven till bin append semi-colon>then click on ok button>then again click on ok 
+button>Then go to cmd prompt>type mvn it will show build failure>to check mvn version type mvn --version>
+Then go to project location in cmd prompt>
+type mvn clean>then type mvn install(in that case build will failed ,you have to pass the parameter)>
+mvn install -Dbrowser=Chrome -DUrlToBeTested=https://classic.crmpro.com/index.html -DCRMxmlFiles=
+testng.xml then hit enter
+
+===========================================================================================
+Selenium Integration with Jenkins and Github:
+--------------------------------------------------------------
+1.download jenkins>generic java package(.war)>open cmd prompt>java -jar war file location --httpPort=
+8084(instead of 8080)>
+localhost:8080>if you get unlock jenkins copy path and paste .jenkins location>[if you get offline>
+go to jenkins home direrctory>hudson.model.UpdateCenter open with nodepad++ >then change https to 
+http after save it>]then copy initial admin password paste it >continue>to stop jenkins press control c>
+install suggested plugins>then it will take 10 to 15 minutes to install plugins>then you will get admin 
+user page>then need  to fill the admin user page >then save and continue[after if I want to change 
+configuration Jenkins URL then need to provide URL ]>save and finish>start using 
+jenkins>manage jenkins>click global tool configuration>jdk installations> jdk name>java_home path>
+uncheck install automatically>maven installations>maven name>maven_home>uncheck install 
+automatically >save >To set email notification>configure system>
+
+To create new job click on New Item>need to give item name(any suitable name you can give)>click on 
+freestyle project>click on ok>Then click on project name>general(need to give description this is optional)>
+click on build>click on execute windows batch command(in place of command section type java -version) 
+I can add n number of batch command>again click on execute windows batch command(in place of 
+command section type mvn -version)>click on save>click on build now>
+
+2.To check Green ball plugins>Manage Jenkins>Manage plugins>available>green balls>To restart 
+jenkins press ctrl+c
+
+3.To categories job click on + button>view name>list view>click on which job you want to select>click ok>
+click on save.
+
+4.To trigger selenium project via Jenkins>click on New Item>Give any meaning full name(RegressionTest)>
+Select Maven project>click on ok>Description(This job will run all regression test)>to run local>
+click on Build>in place of Root POM need to give project path
+(C:\Users\KALYANASHIS\git\KRFramework\KRFramework\pom.xml)>in place of Goals and options need
+to write clean install -Dbrowser=Chrome -DUrlToBeTested=https://classic.crmpro.com/index.html 
+-DCRMxmlFiles=testng.xml>click on save>
+
+5.To download code from github:Click on configure>click on source code management>click on git radio 
+button>then go to github central repository>copy project url(Particular project)>then come to jenkins git
+location(and paste repository url(https://github.com/Kalyanashisroy/KRFramework.git)>click on add>
+click jenkins>need to give username and password>click add button>then go to build>give project folder
+name which is under pom.xml is existing.>click on save>then click on build now>user name(uptodate.kr@
+gmail.com>password>use ssl> SMTP port(465)>charset(UTF-8)>
+
+6.To change different browser user need to come again again and need to change browser.To parameter 
+pass in Jenkins>To pass parameterized go to general>select This project is parameterized>click on add
+parameter>select string parameter>in place of name need to give meaningfull name(Application)>
+Defaul value(https://classic.crmpro.com/index.html)>Description(any thing which you want)>If you want
+to add multiple parameter >select choice parameter>Name(Browser)>Choices(Chrome/Firefox/Opera/IE)>
+Description(Any thing you can add)>If you not give default value it will take by default value but user can 
+change it>Again click string parameter>Name(XMLSuite)>Default value(testng.xml)>despcription()>
+Then go to build>in place of Goals and options need to pass parameter
+(clean install -Dbrowser=$Browser-DUrlToBeTested=$Application -DCRMxmlFiles=$XMLSuite)>
+click on save>then click on build with parameters>it will ask which browser you want to run>If I want to 
+change I can change the url and browser as well>click on build>
+
+7.Post build actions:to publish testng report>after complete step no 8. again go to post build actions>
+select editable email notification>triggers>always>send to recipient list>
+
+8.To send email:click manage jenkins>configure system>go to extended e-mail notification>SMTP server(
+smtp.gmail.com)>Default user e-mail suffix(@gmail.com)>
+
+===========================================================================================
+How To Publish Report in Jenkins and Schedule Selenium Build in Jenkins:
+-----------------------------------------------------------------------------------------------------
+
+1.Cron pattern:The software utility cron is a time-based job scheduler in Unix-like computer operating 
+systems.Users that set up and maintain software environments use cron to schedule jobs (commands or 
+shell scripts) to run periodically at fixed times, dates, or intervals.
+Go to created job>click on configure>go to build triggers>select build periodically>in place of schedule need
+to write 36 19 * * * that means 7 36 it should starts>click on save>
+
+To select poll scm:go to created job>click on configure>go to triggers>select Poll SCM>in place of schedule
+need to write that means it will try to poll after every minute.>click on save>go to github central repository>
+go to project location click on create new file>write SCMFiles>click on commit new file>
+
+How to identify who is running the build and to cross verify who is running the build:
+-->Started by timer it means it has been triggered automatically by the cron pattern which you set.
+-->If some body triggered manually it should started my Kalyan or some other user's.
+-->If started by SCM changes means it has been triggered by poll SCM which you set.
+
+2.How to publish HTML report:(In order to do that in google type for html publisher plugin jenkins)>
+click manage jenkins>click on manage plugins>click on available>search for html publisher and hit enter>
+Then it will ask (install without restart or download now and install after restart) for your convenient you 
+do whatever you want>click on configure>go to post-build actions click on add post-build action>click
+on publish html reports>click on add button>in place of index page[s] need to write like that
+(KRFramework\Reports\FreeCRM.html)>in place of report title need to write like that 
+(LearnAutomationReport)>click on save>
+
+Groovy script in order to display report properly:Click on Jenkins>click on manage jenkins>
+click on script console>write System.setProperty("hudson.model.DirectoryBrowserSupport.CSP","")>
+click on run button
+
+=========================================================================================
+How to Clone Github repository using SSHKey:
+--------------------------------------------------------------
+1.What is SSH key:An SSH key is an access credential in the SSH protocol.Its function is similar to that of
+username and password,but the keys are primarily used for automated processes and for implementing
+single sign-on by system administrators and power users.
+
+https://www.youtube.com/watch?v=y2SWzw9D4RA(How SSH works)
+
+2.How to generate SSH key:go to eclipse>click on window>click on preferences>click on general>click on
+network connections>click on SSH2>click on key management>click on generate RSA key>copy content of
+generate RSA key (ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCc0gqcSoxE/2qKgcUZLcy7Fo0PpoUkc
+H7e8IXEIJdGL8h8CkUgBjkTCksQsZjoscYIiwtB2Q6R5mJoeFY6JhGmXQ5Y/YgsbRaUfzDTas5qTnT+x9wGY
+YdTR9fihGLn6UOjDJB8kUnbhusxSpi3PO9sMAmbFLNTnHHE74TEGhrVWQ== RSA-1024)>click on save
+private key>it will ask you want to save it without password>click on yes>
+
+3.How to add SSH key in your github:Then go to github account>
+click on signed in as (Kalyanashisroy) then click on settings>click on SSH and GPG keys>then click on 
+new SSH key button>then need to give title(KRSystem) and need to paste generated eclipse key 
+which I paste in notepad in key section>then click on add SSH key button>
+
+4.How to clone github repo in Jenkins using SSH:to create duplicate new job click on new item>give name 
+>then copy from type same previous name >click on ok button>go to source code management>credentials
+make it none>in place of repository url (git@github.com:Kalyanashisroy/KRFramework.git)>click on save>
+go to created job>click on configure>
+
+https://github.com/Kalyanashisroy/KRFramework.git
+git@github.com:Kalyanashisroy/KRFramework.git
+
+====================================================================================
+Syntax for different kind of report:
+--------------------------------------------
+plugin={"html:target/cucumber-html-report",
+"json:target/cucumber.json","pretty:target/cucumber-pretty.txt",
+"usage:target/cucumber-usage.json","junit:target/cucumber-result.xml"}
+====================================================================================
+Maven Integration With Jenkins:
+-------------------------------------------
+1.Manage Jenkins>Global tool configuration>go to maven installations>name>MAVEN_HOME>
+MAVEN-HOME=D:\Software\apache-maven-3.6.3-bin\apache-maven-3.6.3>click on add maven button>
+click on apply>click on save button
+2.Click on new item>select maven project >build(root pom=C:\Users\KALYANASHIS\eclipse-workspace\Learn-Automation\pom.xml)
+ and goals and options=clean install>apply>save>click on build now
+
+======================================================================================
+KRFramework Maven Dependency:
+----------------------------------------------
+<dependencies>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.14.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.10</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M4</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>XMLFiles/${CRMxmlFiles}</suiteXmlFile>
+					</suiteXmlFiles>
+					
+					<systemPropertyVariables>
+					<executionBrowser>${browser}</executionBrowser>
+					<crmURL>${UrlToBeTested}</crmURL>
+					
+					</systemPropertyVariables>
+					
+					
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+=============================================================================================================
+Different version: 
+About eclipse-version oxygen release (4.7.0)/ Current version (4.10)
+
+1.Apache Maven: Previous:3.3.1    /   Current:3.6.3
+2.Selenium-java :Previous:3.12.0  /Current :4.0.0.alpha-6
+3.Extentreports :Previous :3.1.5     /Current :4
+4.TestNG : Previous :6.10    /Current :7.1.0
+5.Log 4j 2: log4j-core : Previous :2.13.1    /Current :2.13.2
+6.Log 4j 2 : log4j-api : Previous :2.13.1    /Current :2.13.2
+7.Jenkins : Previous : 2.60.2        /Current :2.222.3
+8.maven-surefire-plugin: Previous :2.19.1 /Current :3.0.0-M4
+9.poi :Previous :3.16 /Current : 4.1.2
+10.poi-ooxml: Previous :3.16 /Current :4.1.2
+11.Firefox : Previous :    46 (0.19.1)    /Current :0.26.0
+12.Chrome : Previous :      70      /Current : 83
+13.Safari : Previous :         9   /Current : 13
+14.Opera : Previous :     68       /Current : 81
+15.IE : Previous :     9       /Current : 11
+16.Edge : Previous :      75      /Current : 81
+17.Cucumber -junit: Previous 1.2.2   /Current : 1.2.6
+18.Cucumber-java   : Previous 1.2.2   /Current :1.2.6
+19.Junit    :Previous :4.11    /Current :4.13
+20.maven-compiler-plugin :Previous: 3.0/ Current: 3.8.1
+===========================================================================================================
+
+
+
+
+
+
+
+
