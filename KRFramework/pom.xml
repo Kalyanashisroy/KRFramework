@@ -38,7 +38,7 @@
 		</dependency>
 
 	</dependencies>
-
+	
 	<build>
 
 		<plugins>
@@ -50,14 +50,14 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>XMLFiles/${CRMxmlFiles}</suiteXmlFile>
 					</suiteXmlFiles>
-					
+
 					<systemPropertyVariables>
-					<executionBrowser>${browser}</executionBrowser>
-					<crmURL>${UrlToBeTested}</crmURL>
-					
+						<executionBrowser>${browser}</executionBrowser>
+						<crmURL>${UrlToBeTested}</crmURL>
+
 					</systemPropertyVariables>
-					
-					
+
+
 				</configuration>
 			</plugin>
 		</plugins>
