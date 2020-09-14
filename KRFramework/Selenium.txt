@@ -424,10 +424,185 @@ About eclipse-version oxygen release (4.7.0)/ Current version (4.10)
 18.Cucumber-java   : Previous 1.2.2   /Current :1.2.6
 19.Junit    :Previous :4.11    /Current :4.13
 20.maven-compiler-plugin :Previous: 3.0/ Current: 3.8.1
+21.Apache JMeter5.3 :Previous 3.0/Current :5.3
+22.Appium   : Previous :1.10.0 /Current :1.17.1
+23.Appium doctor : Previous :    /Current :1.15.3
 ===========================================================================================================
 
 
 
+
+
+
+
+
+===========================================================================================================
+Cucumber Naveen:
+1.Create maven project>copy maven dependency and save it>under sr/main/java create a package CRMFeature
+>under CRMFeature create a file Login.feature>Go to eclipse market place install natural or if it is not 
+available go to this url (https://marketplace.eclipse.org/content/natural) drag and drop into eclipse>Then 
+inside Login.feature need to write 
+Feature: Free CRM Login Feature
+Scenario: Free CRM Login Test Scenario
+Given user is already on login page
+When title of login page is free CRM
+Then user enter username and password
+Then user click on login button
+And user is on home page
+Why feature file showing yellow mark : If you not written step definition then only feature file will show
+yellow mark.If you write step definition yellow mark automatically will remove.
+
+2.CucumberOptions:
+dryRun:It means every thing is fine or not.Whatever the mapping you have done it is correct or not.It will 
+check the mapping of feature and step definition file correct or not.If dryRun=true inside TestRunner if any
+step is missing or not it will check for example inside step definition 100 step is there if by forget any steps 
+is missing if you run the test runner on the console it will show which steps has been missed.First time 
+you have to do dryRun=true if every steps working fine means you can change it to dryRun=false.
+
+dryRun:To check the mapping is proper between feature file and step definition file. 
+Features:The path of the features files or packages.
+glue:The path of the step definition.
+tags:
+Monochrome:Display the console output in a proper readable format.
+Format:To generate different type of reporting.
+Strict:It will check if any step is not defined in step definition file.
+
+3.Data driven testing using cucumber:
+
+1.Simple data driven-without examples keyword:
+
+In feature file you have to write like this 
+Feature: Free CRM Login Feature
+Scenario: Free CRM Login Test Scenario
+Given user is already on login page
+When title of login page is free CRM
+Then user enter "kgec.kr@gmail.com" and "Kcrm$123456"
+Then user click on login button
+And user is on home page
+
+Step definition file you have to write like this
+//Reg exp
+//1. \"([^\"]*)\"
+//2.\"(.*?)\"
+@Then("^user enter \"(.*?)\" and \"(.*?)\"$")
+public void user_enter_username_and_password(String uname,String pass) throws Throwable {
+		driver.findElement(By.name("email")).sendKeys(uname);
+		driver.findElement(By.name("password")).sendKeys(pass);
+}
+2.with examples +scenario outline:
+
+Scenario Outline: Free CRM Login Test Scenario
+
+Given user is already on login page
+When title of login page is free CRM
+Then user enter "<username>" and "<password>"
+Then user click on login button
+And user is on home page
+
+Examples:
+	|username          | password   |
+	|kgec.kr@gmail.com | Kcrm$123456|
+	|  John            | test456    |
+If you have three row of data using scenario outline and examples keyword entire test case will execute 
+three time if you have fifty row of data using scenario outline and examples keyword entire test case will 
+execute fifty times.That's bigest advantage of scenario outline with examples keyword in cucumber.
+
+3.Using Datatables:
+
+To fetch data in cucumber using data tables 
+Feature: Deal data creation
+
+Scenario: Free CRM Create a new deal scenario
+
+Given user is already on Login Page
+When title of login page is Free CRM
+Then user enters username and password
+| kgec.kr@gmail.com | Kcrm$123456 |
+Then user click on login button
+Then user is on home page
+Then user moves to new deal page
+Then user enters deal details
+|test deal | 1000 | 50 | 10 |
+Then close the browser
+
+@Then("^user enters username and password$")
+	public void user_enters_username_and_password(DataTable credentials) throws Throwable {
+		List<List<String>> data=credentials.raw();
+		driver.findElement(By.name("email")).sendKeys(data.get(0).get(0));
+		
+
+DataTable is the class available in cucumber.In datatable raw method is available.Raw method will return
+List<List<String>> and all the value are string.In datatable index starts from zero.
+ Then user enters deal details
+|test deal | 1000 | 50 | 10 | that means it is applicable for above line data 
+
+4.To fetch data in cucumber using data tables 
+Feature: Deal data creation
+
+Scenario: Free CRM Create a new deal scenario
+
+Given user is already on Login Page
+When title of login page is Free CRM
+Then user enters username and password
+| kgec.kr@gmail.com | Kcrm$123456 |
+Then user click on login button
+Then user is on home page
+Then user moves to new deal page
+Then user enters deal details
+|test deal | 1000 | 50 | 10 |
+Then close the browser
+
+@Then("^user enters username and password$")
+	public void user_enters_username_and_password(DataTable credentials) throws Throwable {
+		List<List<String>> data=credentials.raw();
+		driver.findElement(By.name("email")).sendKeys(data.get(0).get(0));
+		
+
+DataTable is the class available in cucumber.In datatable raw method is available.Raw method will return
+List<List<String>> and all the value are string.In datatable index starts from zero.
+ Then user enters deal details
+|test deal | 1000 | 50 | 10 | that means it is applicable for above line data 
+
+5.How we can parameterized test cases with help of maps:
+@Then("^user enters username and password$")
+	public void user_enters_username_and_password(DataTable credentials) throws Throwable {
+		for(Map<String,String> data : credentials.asMaps()){
+		driver.findElement(By.name("email")).sendKeys(data.get("username"));
+		driver.findElement(By.name("password")).sendKeys(data.get("password"));
+		}
+	}
+With the help of map of object we can parameterized n number of object.
+
+6.@RunWith(Cucumber.class)
+@CucumberOptions(
+		features="C:\\Users\\KALYANASHIS\\git\\FreeCRMBDDFramework\\FreeCRMBDDFramework\\CRMFeatures\\Tagging.feature",
+		//features="C:\\Users\\KALYANASHIS\\git\\FreeCRMBDDFramework\\FreeCRMBDDFramework\\CRMFeatures\\Dealsmap.feature",
+		//The path of the features files or packages
+        glue={"CRMStepDefinition"},//The path of the step definition
+        //glue= {"CRMStepDefinitionContacts"},
+        
+        format= {"pretty","html:test-output","json:json_output/cucumber.json",
+        "junit:junit_xml/cucumber.xml"},//To generate different type of reporting
+        monochrome=true,//Display the console output in a proper readable format
+        strict=true,//It will check if any step is not defined in step definition file.
+        dryRun=false,//To check the mapping is proper between feature file and step definition file.
+		tags= {"@SmokeTest , @RegressionTest"}
+		)
+public class CRMTestRunner {
+
+}
+
+In tagging concept tags equals to need have to write tage name whatever tag name we have assign over feature file.
+
+In that case ,(comma) means or operator
+//ORed:tags={"@SmokeTest,@RegressionTest"}--execute all tests as @SmokeTest OR @RegressionTest
+//ANDed:tags={"@SmokeTest","@RegressionTest"}--execute all tests as @SmokeTest AND @RegressionTest
+To ignoring tags you have to use special character(~) 
+
+7.Hooks:Hooks are use in cucumber to define the pre-condition and post-condition.
+Tagged Hooks:Tagged hooks means if you want to execute any pre-condition for the specific scenario 
+
+8.
 
 
 
