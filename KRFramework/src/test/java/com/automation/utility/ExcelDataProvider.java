@@ -32,7 +32,6 @@ public class ExcelDataProvider {
 	public double getNumericData(String sheetName,int row,int column) {
 		return wb.getSheet(sheetName).getRow(row).getCell(column).getNumericCellValue();
 	}
-	
-	
+
 	
 }
