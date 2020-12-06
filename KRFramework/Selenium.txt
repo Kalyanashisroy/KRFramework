@@ -99,18 +99,6 @@ About eclipse-version oxygen release (4.7.0)
 How To Integrate Framework With Git and Github:
 ------------------------------------------------------------------
 
-1.Github username:Kalyan006
-email address:kalyanashis.roy@gmail.com
-password:roy&3naylak$6
-
-2.Github username:Kalyanashisroy
-email address:uptodate.kr@gmail.com
-password:&Roy@3MF#2Km$2
-
-3.Github username:Krkgec06
-email address:kgec.kr@gmail.com
-password:Blr@3Gpfmit&6
-
 ----------------------------------------------------------------------------------------------------------------------
 
 Push-Submit the code to central repository
